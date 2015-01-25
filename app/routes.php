@@ -18,3 +18,17 @@ Route::get('/', function()
 
 
 Route::controller('admin/categories', 'CategoriesController');
+Route::controller('admin/products',   'ProductsController');
+
+Route::get('/file', array('as' => 'fajl', 'uses' => 'HomeController@uploadFile') );
+Route::post('/post', function(){
+
+
+	$file = Input::file('fajl');
+
+   if($file){
+	   echo 'too';
+   }
+
+
+} );

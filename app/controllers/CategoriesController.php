@@ -15,11 +15,11 @@ class CategoriesController extends \BaseController {
 
     public function postCreate()
     {
-        $validator = Validator::make(Input::all(), Category::$rules);
+        $validator = Validator::make(Input::all(), Categories::$rules);
 
         if($validator->passes())
         {
-            $category           = new Category();
+            $category           = new Categories();
             $category->name     = Input::get('name');
             $category->save();
 
@@ -35,7 +35,7 @@ class CategoriesController extends \BaseController {
 
     public function postDestroy()
     {
-        $category = Category::find(Input::get('id'));
+        $category = Categories::find(Input::get('id'));
 
         if($category)
         {
