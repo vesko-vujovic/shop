@@ -2,6 +2,16 @@
 
 class BaseController extends Controller {
 
+	public function __construct()
+	{
+		$this->beforeFilter(function(){
+			
+			View::share('catnav',  Categories::all());
+		});
+	}
+
+
+
 	/**
 	 * Setup the layout used by the controller.
 	 *

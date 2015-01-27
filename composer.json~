@@ -6,7 +6,14 @@
 	"type": "project",
 	"require": {
 		"laravel/framework": "4.2.*",
-                "way/generators": "~2.0"
+                "way/generators": "~2.0",
+                "intervention/image": "dev-master",
+                 "phpunit/phpunit": "3.7.*",
+                  "moltin/tax": "dev-master",
+                  "moltin/currency":"dev-master",
+                  "moltin/cart": "dev-master",
+                  "moltin/cart": "dev-master"
+                   
 	},
 	"autoload": {
 		"classmap": [

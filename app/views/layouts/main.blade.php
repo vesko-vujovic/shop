@@ -27,7 +27,7 @@
                 </section><!-- end top-area -->
                 <section id="action-bar">
                     <div id="logo">
-                        <a href="#"><span id="logo-accent">e</span>Commerce</a>
+                        <a href=""><span id="logo-accent">e</span>Commerce</a>
                     </div><!-- end logo -->
 
                     <nav class="dropdown">
@@ -35,55 +35,69 @@
                             <li>
                                 <a href="#">Shop by Category  {{HTML::image('img/down-arrow.gif', 'shop by category')}} </a>
                                 <ul>
-                                    <li><a href="#">Laptops</a></li>
-                                    <li><a href="#">Desktop PC</a></li>
-                                    <li><a href="#">Smartphones</a></li>
-                                    <li><a href="#">Tablets</a></li>
+                                   @foreach($catnav as $cat)
+
+                                       <li> {{HTML::link('/store/category/'.$cat->id, $cat->name)}} </li>
+                                    @endforeach
                                 </ul>
                             </li>
                         </ul>
                     </nav>
 
                     <div id="search-form">
-                        <form action="#" method="get">
-                            <input type="search" name="search" placeholder="Search by keyword" class="search">
-                            <input type="submit" value="Search" class="search submit">
-                        </form>
+                        {{Form::open(array('url'=> 'store/search', 'method' => 'get'))}}
+                        {{Form::text('keyword', null, array('placeholder' => 'Search by keyword', 'class' => 'search'))}}
+                        {{Form::submit('Search', array('class'=>'search submit'))}}
+                        {{Form::close()}}
                     </div><!-- end search-form -->
 
                     <div id="user-menu">
                         
-                        <nav id="signin" class="dropdown">
+
+                        @if(Auth::check())
+                            <nav class="dropdown">
+                                <ul>
+                                    <li>
+                                        <a href="#">{{HTML::image('img/user-icon.gif', 'sign in icons')}} {{Auth::user()->firstname}} {{HTML::image('img/down-arrow.gif', 'sign in ')}}</a>
+                                        <ul>
+                                            <li></li>
+                                            @if(Auth::user()->admin ==1)
+                                                <li>{{HTML::link('admin/categories', 'Menage Categories')}} </li>
+                                                <li>{{HTML::link('admin/products', 'Menage Product')}} </li>
+                                            @endif
+                                            <li>{{HTML::link('users/signout', 'Sign Out')}} </li>
+                                        </ul>
+                                    </li>
+                                </ul>
+                            </nav>   <!--  -->
+                        @else
+                                 <nav id="signin" class="dropdown">
                             <ul>
                                 <li>
                                     <a href="#">{{HTML::image('img/user-icon.gif', 'sign in icons')}} Sign In {{HTML::image('img/down-arrow.gif', 'sign in ')}}</a>
                                     <ul>
-                                        <li><a href="#">Sign In</a></li>
-                                        <li><a href="#">Sign Up</a></li>
+                                        <li>{{HTML::link('users/signin', 'Sign In')}} </li>
+                                        <li>{{HTML::link('users/newaccount', 'Sign Up')}}</li>
                                     </ul>
                                 </li>
                             </ul>
                         </nav>
+                        @endif
 
-                        <!--
-                        <nav class="dropdown">
-                            <ul>
-                                <li>
-                                    <a href="#">{{HTML::image('img/user-icon.gif', 'sign in icons')}} Andrew Perkins {{HTML::image('img/down-arrow.gif', 'sign in ')}}</a>
-                                    <ul>
-                                        <li><a href="#">Order History</a></li>
-                                        <li><a href="#">Sign Out</a></li>
-                                    </ul>
-                                </li>
-                            </ul>
-                        </nav>-->
+
                     </div><!-- end user-menu -->
-
+                <section id="view-cart">
                     <div id="view-cart">
-                        <a href="#">{{HTML::image('img/blue-cart.gi','View Cart')}} </a>
-                    </div><!-- end view-cart -->
-                </section><!-- end action-bar -->
+                        <a href="store/cart">{{HTML::image('img/blue-cart.gif','View Cart')}} View Cart </a>
+                    </div>
+                </section>
             </header>
+
+            @yield('promo')
+
+            @yield('search-keyword')
+
+
 
             <hr />
 
@@ -98,6 +112,8 @@
 
             <hr />
 
+            @yield('pagination')
+
             <footer>
                 <section id="contact">
                     <h3>For phone orders please call 0000-0000-0000. You<br>can also email us at <a href="mailto:office@shop.com">veskovujovic@yahoo.com</a></h3>
@@ -109,10 +125,9 @@
                     <div id="my-account">
                         <h4>MY ACCOUNT</h4>
                         <ul>
-                            <li><a href="#">Sign In</a></li>
-                            <li><a href="#">Sign Up</a></li>
-                            <li><a href="#">Order History</a></li>
-                            <li><a href="#">Shopping Cart</a></li>
+                             <li>{{HTML::link('users/signin', 'Sign In')}} </li>
+                             <li>{{HTML::link('users/newaccount', 'Sign Up')}}</li>
+                            <li><a href="store/cart">Shopping Cart</a></li>
                         </ul>
                     </div><!-- end my-account -->
                     <div id="info">

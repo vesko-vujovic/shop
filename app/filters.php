@@ -35,14 +35,7 @@ App::after(function($request, $response)
 
 Route::filter('auth', function()
 {
-	if (Auth::guest())
-	{
-		if (Request::ajax())
-		{
-			return Response::make('Unauthorized', 401);
-		}
-		return Redirect::guest('login');
-	}
+	if(Auth::guest()) return Redirect::guest('users/signin');
 });
 
 
@@ -84,4 +77,13 @@ Route::filter('csrf', function()
 	{
 		throw new Illuminate\Session\TokenMismatchException;
 	}
+});
+
+/**
+ *ADMIN FILTER
+ */
+
+Route::filter('admin', function()
+{
+	if (!Auth::user() || Auth::user()->admin != 1 ) return Redirect::to('/');
 });

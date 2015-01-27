@@ -11,24 +11,16 @@
 |
 */
 
-Route::get('/', function()
-{
-	return View::make('hello');
-});
-
+Route::get('/', array('uses' => 'StoreController@getIndex'));
 
 Route::controller('admin/categories', 'CategoriesController');
 Route::controller('admin/products',   'ProductsController');
+Route::controller('store','StoreController');
 
-Route::get('/file', array('as' => 'fajl', 'uses' => 'HomeController@uploadFile') );
-Route::post('/post', function(){
-
-
-	$file = Input::file('fajl');
-
-   if($file){
-	   echo 'too';
-   }
+Route::controller('users', 'UsersController');
 
 
-} );
+
+
+
+
