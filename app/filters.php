@@ -33,11 +33,6 @@ App::after(function($request, $response)
 |
 */
 
-Route::filter('auth', function()
-{
-	if(Auth::guest()) return Redirect::guest('users/signin');
-});
-
 
 Route::filter('auth.basic', function()
 {
@@ -85,5 +80,9 @@ Route::filter('csrf', function()
 
 Route::filter('admin', function()
 {
-	if (!Auth::user() || Auth::user()->admin != 1 ) return Redirect::to('/');
+	if(Auth::check())
+	{
+		if (!Auth::user() || Auth::user()->admin != 1 ) return Redirect::to('/');
+	}
+
 });

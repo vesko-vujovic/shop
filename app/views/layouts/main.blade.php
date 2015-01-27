@@ -27,7 +27,7 @@
                 </section><!-- end top-area -->
                 <section id="action-bar">
                     <div id="logo">
-                        <a href=""><span id="logo-accent">e</span>Commerce</a>
+                        <a href="/"><span id="logo-accent">e</span>Commerce</a>
                     </div><!-- end logo -->
 
                     <nav class="dropdown">
@@ -61,7 +61,7 @@
                                         <a href="#">{{HTML::image('img/user-icon.gif', 'sign in icons')}} {{Auth::user()->firstname}} {{HTML::image('img/down-arrow.gif', 'sign in ')}}</a>
                                         <ul>
                                             <li></li>
-                                            @if(Auth::user()->admin ==1)
+                                            @if(Auth::user()->admin == 1)
                                                 <li>{{HTML::link('admin/categories', 'Menage Categories')}} </li>
                                                 <li>{{HTML::link('admin/products', 'Menage Product')}} </li>
                                             @endif
